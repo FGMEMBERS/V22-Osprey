@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+
+<PropertyList>
+
+
+	<key n="100">
+		<name>d</name>
+		<desc>Canopy</desc>
+		<binding>
+			<command>nasal</command>
+			<script>v22.doorsystem.crewexport();</script>
+		</binding>
+	</key>
+
+	<key n="78">
+		<name>N</name>
+		<desc>Fold wing back</desc>
+		<binding>
+			<command>nasal</command>
+			<script>v22.wing_fold(0)</script>
+		</binding>
+	</key>
+
+
+
+	<key n="110">
+		<name>n</name>
+		<desc>Unfold wing</desc>
+		<binding>
+			<command>nasal</command>
+			<script>v22.wing_fold(1)</script>
+		</binding>
+	</key>
+
+	<key n="123">
+		<name>{</name>
+		<desc>Shutdown Engines</desc>
+		<binding>
+			<command>nasal</command>
+			<script>v22.engines(0)</script>
+		</binding>
+	</key>
+
+	<key n="125">
+		<name>}</name>
+		<desc>Start Engines</desc>
+		<binding>
+			<command>nasal</command>
+			<script>v22.engines(1)</script>
+		</binding>
+	</key>
+
+	<key n="109">
+		<name>m</name>
+		<desc>Tilt Rotors fwd</desc>
+		<binding>
+			<command>nasal</command>
+			<script>v22.set_tilt(10)</script>
+		</binding>
+		<mod-alt>
+			<binding>
+				<command>nasal</command>
+				<script>v22.set_tilt(0,0)</script>
+			</binding>
+		</mod-alt>
+	</key>
+
+	<key n="77">
+		<name>M</name>
+		<desc>Tilt Rotors aft</desc>
+		<binding>
+			<command>nasal</command>
+			<script>v22.set_tilt(-10)</script>
+		</binding>
+	</key>
+
+</PropertyList>
+
