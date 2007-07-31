@@ -28,6 +28,7 @@ Thanks
 ======
 
 Maik JUSTUS for animations and FDM
+Detlef FABER for FDM
 
 ===============
 BARANGER Emmanuel
@@ -65,6 +66,7 @@ Remerciements
 =============
 
 Maik JUSTUS pour le modèle de vol et les animations
+Detlef FABER pour le modèle de vol
 
 ===============
 BARANGER Emmanuel

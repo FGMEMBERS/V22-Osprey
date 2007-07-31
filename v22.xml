@@ -72,7 +72,7 @@
 	<fuselage ax="8.0" ay="0" az="-1.6" bx="-4.8" by="0" bz="-1.6" width="2.1" taper="0.95" midpoint="0.5" cx=".7" cy="2" cz="0.35" idrag="0"/>
 
 
-	<wing x="1.91" y="0.6" z="0.39" chord="2.35" chord_real="2.35" taper="1.0" length_real="5.4" length="5.4" dihedral="3" incidence="3.5" camber="0.0" sweep="-8">
+	<wing x="1.91" y="0.6" z="0.39" chord="2.35" chord_real="2.35" taper="1.0" length_real="5.4" length="5.4" dihedral="3" incidence="3.5" camber="0.2" sweep="-8">
 		<stall width="8" aoa="35" peak="1.5"/>
 		<flap0 drag="1.6" end="0.5" lift="2" start="0.02"/>
 		<flap1 drag="1.6" end="0.97" lift="2" start="0.5"/>
@@ -85,16 +85,16 @@
 	</wing>
 
 
-	<vstab x="-6.31" y="2.26" z="0.39" taper=".5" length="2.89" chord="2.44" sweep="25" incidence="0">
+	<vstab x="-6.31" y="2.26" z="-1.39" taper=".5" length="2.89" chord="2.44" sweep="25" incidence="0">
 		<stall aoa="16" width="4" peak="1.5"/>
-		<flap0 drag="1.2" end="1" lift="1.6" start="0.4"/>
+		<flap0 drag="1.2" end="1" lift="1.4" start="0.4"/>
 		<control-input control="FLAP0" axis="/sim/model/v22/wing/rudder" invert="true"/>
 		<control-output prop="/surface-positions/rudder-pos-norm" control="FLAP0" min="1" max="-1"/>
 	</vstab>
 
-	<vstab x="-6.31" y="-2.26" z="0.39" taper=".5" length="2.89" chord="2.44" sweep="25" incidence="0">
+	<vstab x="-6.31" y="-2.26" z="-1.39" taper=".5" length="2.89" chord="2.44" sweep="25" incidence="0">
 		<stall aoa="16" width="4" peak="1.5"/>
-		<flap0 drag="1.2" end="1" lift="1.6" start="0.4"/>
+		<flap0 drag="1.2" end="1" lift="1.4" start="0.4"/>
 		<control-input control="FLAP0" axis="/sim/model/v22/wing/rudder" invert="true"/>
 		<control-output prop="/surface-positions/rudder-pos-norm" control="FLAP0" min="1" max="-1"/>
 	</vstab>
@@ -146,8 +146,8 @@
 	<!-- work around bug in native-fdm.cxx:184 -->
 	<tank x="0" y="0" z="0" capacity="0"/>
 
-	<ballast x=" 4.25" y="+0.0" z="-0.5" mass=" 9500"/>
-	<ballast x="-8" y="+0.0" z=" 0.0" mass="-6500"/>
+	<ballast x=" 4.25" y="+0.0" z="-2.5" mass=" 9500"/>
+	<ballast x="-8" y="+0.0" z="0.5" mass="-6500"/>
 
 	<!-- engine weight: 971 lbs, add some lbs for gear and ...-->
 	<ballast x="1.91" yr="6" y="3" z="0.39" mass="1200"/>
