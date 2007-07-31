@@ -505,6 +505,10 @@ var update_rotor_brake = func {
 	control_rotor_brake.setValue(brake);
 }
 
+controls.adjMixture = func(v) set_tilt(v > 0 ? 10 : -10);
+controls.adjPropeller = func(v) wing_fold(v > 0);
+
+
 # sound =============================================================
 
 # some sounds sound

@@ -15,10 +15,6 @@
 	<key n="78">
 		<name>N</name>
 		<desc>Fold wing back</desc>
-		<binding>
-			<command>nasal</command>
-			<script>v22.wing_fold(0)</script>
-		</binding>
 	</key>
 
 
@@ -26,10 +22,6 @@
 	<key n="110">
 		<name>n</name>
 		<desc>Unfold wing</desc>
-		<binding>
-			<command>nasal</command>
-			<script>v22.wing_fold(1)</script>
-		</binding>
 	</key>
 
 	<key n="123">
@@ -53,10 +45,7 @@
 	<key n="109">
 		<name>m</name>
 		<desc>Tilt Rotors fwd</desc>
-		<binding>
-			<command>nasal</command>
-			<script>v22.set_tilt(10)</script>
-		</binding>
+		<repeatable>false</repeatable>
 		<mod-alt>
 			<binding>
 				<command>nasal</command>
@@ -68,10 +57,7 @@
 	<key n="77">
 		<name>M</name>
 		<desc>Tilt Rotors aft</desc>
-		<binding>
-			<command>nasal</command>
-			<script>v22.set_tilt(-10)</script>
-		</binding>
+		<repeatable>false</repeatable>
 	</key>
 
 </PropertyList>
