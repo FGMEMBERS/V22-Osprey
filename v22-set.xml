@@ -99,6 +99,7 @@ V22 Osprey simulation config.
 				<!--up-->
 				<z-offset-m archive="y"> -6.060 </z-offset-m>
 				<!--back-->
+				<pitch-offset-deg> -10 </pitch-offset-deg>
 			</config>
 		</view>
 

@@ -28,11 +28,11 @@ Thanks
 ======
 
 Maik JUSTUS for animations and FDM
-Detlef FABER for FDM
+Detlef FABER for FDM and texture
 
 ===============
 BARANGER Emmanuel
-July, 24, 2007. 
+August, 06, 2007. 
 http://helijah.free.fr/flightgear/hangar.htm
 embaranger@free.fr
 
@@ -66,11 +66,11 @@ Remerciements
 =============
 
 Maik JUSTUS pour le modèle de vol et les animations
-Detlef FABER pour le modèle de vol
+Detlef FABER pour le modèle de vol et la texture
 
 ===============
 BARANGER Emmanuel
-24 Juillet 2007.
+06 Août 2007.
 
 http://helijah.free.fr/flightgear/hangar.htm
 embaranger@free.fr
