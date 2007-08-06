@@ -89,6 +89,8 @@ V22 Osprey simulation config.
 				</flight_computer>
 			</v22>
 		</model>
+		
+		<chase-distance-m type="double" archive="y">-35.00</chase-distance-m>
 
 		<view n="0">
 			<internal archive="y">true</internal>
