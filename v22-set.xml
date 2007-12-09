@@ -97,6 +97,7 @@ V22 Osprey simulation config.
 				<float n="0"></float>
 				<float n="1"></float>
 				<float n="2"></float>
+				<float n="3"></float>
 			</generic>
 		</multiplay>
 
@@ -225,6 +226,7 @@ lack of speed the tilt is limited to 30deg max.
 			<rpm type="double">0</rpm>
 			<blade>
 				<position-deg type="float">0</position-deg>
+				<incidence-deg type="float">0</incidence-deg>
 			</blade>
 		</main>
 	</rotors>

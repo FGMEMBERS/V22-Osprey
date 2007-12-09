@@ -303,6 +303,7 @@ var max_rel_torque = props.globals.getNode("controls/rotor/maxreltorque", 1);
 # 13 -> 0
 var animation_tilt = props.globals.getNode("sim/model/v22/animation_tilt",1);
 var blade_folding = props.globals.getNode("sim/model/v22/blade_folding",1);
+var blade_incidence = props.globals.getNode("rotors/main/blade/incidence-deg",1);
 
 var update_wing_state = func {
 	var ws = wing_state.getValue();
@@ -809,6 +810,7 @@ var update_mp_generics = func {
 	setprop("sim/multiplay/generic/float[0]", blade_folding.getValue());
 	setprop("sim/multiplay/generic/float[1]", animation_tilt.getValue());
 	setprop("sim/multiplay/generic/float[2]", wing_rotation.getValue());
+	setprop("sim/multiplay/generic/float[3]", blade_incidence.getValue());
 }
 
 # main() ============================================================

@@ -150,6 +150,13 @@ blade right 3 pitch (piedpaleD3+paleD3)
 			var blade_folding_mp = self.getNode("sim/multiplay/generic/float[0]", 1);
 			var animation_tilt_mp = self.getNode("sim/multiplay/generic/float[1]", 1);
 			var wing_rotation_mp = self.getNode("sim/multiplay/generic/float[2]", 1);
+			var blade_incidence_mp = self.getNode("sim/multiplay/generic/float[3]", 1);
+			var blade_incidence0 = self.getNode("rotors/main/blade[0]/incidence-deg", 1);
+			var blade_incidence1 = self.getNode("rotors/main/blade[1]/incidence-deg", 1);
+			var blade_incidence2 = self.getNode("rotors/main/blade[2]/incidence-deg", 1);
+			var blade_incidence10 = self.getNode("rotors/tail/blade[0]/incidence-deg", 1);
+			var blade_incidence11 = self.getNode("rotors/tail/blade[1]/incidence-deg", 1);
+			var blade_incidence12 = self.getNode("rotors/tail/blade[2]/incidence-deg", 1);
 			var loop = func() {
 				var v = blade_folding_mp.getValue();
 				if ( v == nil) v = 0.0;
@@ -162,6 +169,15 @@ blade right 3 pitch (piedpaleD3+paleD3)
 				v = wing_rotation_mp.getValue();
 				if ( v == nil) v = 0.0;
 				wing_rotation.setDoubleValue( v );
+				
+				v = blade_incidence_mp.getValue();
+				if ( v == nil) v = 0.0;
+				blade_incidence0.setDoubleValue( v );
+				blade_incidence1.setDoubleValue( v );
+				blade_incidence2.setDoubleValue( v );
+				blade_incidence10.setDoubleValue( v );
+				blade_incidence11.setDoubleValue( v );
+				blade_incidence12.setDoubleValue( v );
 				
 				settimer(func { loop() }, 0);
 			}
@@ -217,6 +233,12 @@ blade right 3 pitch (piedpaleD3+paleD3)
 		<object-name>bolD</object-name>
 		<object-name>bolG</object-name>
 
+		<object-name>tempAB</object-name>
+		<object-name>tempAH</object-name>
+		<object-name>rotationH</object-name>
+		<object-name>articule01</object-name>
+		<object-name>articule02</object-name>
+
 		<!-- Objets transparents -->
 		<object-name>vitre</object-name>
 		<object-name>propdiscG</object-name>
@@ -252,22 +274,6 @@ blade right 3 pitch (piedpaleD3+paleD3)
 			</greater-than>
 		</condition>
 	</animation>
-
-	<!-- Rentré des roues Temporairement disparition/apparition des roues -->
-	<animation>
-		<type>select</type>
-		<object-name>roueG</object-name>
-		<object-name>roueD</object-name>
-		<condition>
-			<not>
-				<equals>
-					<property>gear/gear[0]/position-norm</property>
-					<value>0</value>
-				</equals>
-			</not>
-		</condition>
-	</animation>
-
 
 	<!-- Rotation des ailes -->
 	<animation>
@@ -1113,6 +1119,11 @@ blade right 3 pitch (piedpaleD3+paleD3)
 	<animation>
 		<type>rotate</type>
 		<object-name>roueA</object-name>
+		<object-name>tempAB</object-name>
+		<object-name>tempAH</object-name>
+		<object-name>rotationH</object-name>
+		<object-name>articule01</object-name>
+		<object-name>articule02</object-name>
 		<property>gear/gear[0]/position-norm</property>
 		<interpolation>
 			<entry>
@@ -1135,6 +1146,58 @@ blade right 3 pitch (piedpaleD3+paleD3)
 			<z>  0.00 </z>
 		</axis>
 	</animation>
+
+	<animation>
+		<type>rotate</type>
+		<object-name>roueG</object-name>
+		<property>gear/gear[1]/position-norm</property>
+		<interpolation>
+			<entry>
+				<ind>   0.0 </ind>
+				<dep> -90.0 </dep>
+			</entry>
+			<entry>
+				<ind> 1.0</ind>
+				<dep> 0.0</dep>
+			</entry>
+		</interpolation>
+		<center>
+			<x-m> -0.467 </x-m>
+			<y-m> -1.699 </y-m>
+			<z-m> -2.671 </z-m>
+		</center>
+		<axis>
+			<x>  1.00 </x>
+			<y>  0.00 </y>
+			<z>  0.00 </z>
+		</axis>
+	</animation>
+
+  <animation>
+    <type>rotate</type>
+    <object-name>roueD</object-name>
+    <property>gear/gear[2]/position-norm</property>
+    <interpolation>
+      <entry>
+        <ind>  0.0 </ind>
+        <dep> 90.0 </dep>
+      </entry>
+      <entry>
+        <ind> 1.0</ind>
+        <dep> 0.0</dep>
+      </entry>
+    </interpolation>
+    <center>
+      <x-m> -0.467 </x-m>
+      <y-m>  1.699 </y-m>
+      <z-m> -2.671 </z-m>
+    </center>
+    <axis>
+      <x>  1.00 </x>
+      <y>  0.00 </y>
+      <z>  0.00 </z>
+    </axis>
+  </animation>
 
 
 	<!-- Rotation de la roue avant en fonction de la gouverne de direction -->
