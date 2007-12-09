@@ -141,6 +141,33 @@ blade right 3 pitch (piedpaleD3+paleD3)
 <PropertyList>
 
 	<path>v22.ac</path>
+	<nasal>
+		<load>
+			var self = cmdarg();
+			var animation_tilt = self.getNode("sim/model/v22/animation_tilt",1);
+			var blade_folding = self.getNode("sim/model/v22/blade_folding",1);
+			var wing_rotation = self.getNode("sim/model/v22/wing_rotation", 1);
+			var blade_folding_mp = self.getNode("sim/multiplay/generic/float[0]", 1);
+			var animation_tilt_mp = self.getNode("sim/multiplay/generic/float[1]", 1);
+			var wing_rotation_mp = self.getNode("sim/multiplay/generic/float[2]", 1);
+			var loop = func() {
+				var v = blade_folding_mp.getValue();
+				if ( v == nil) v = 0.0;
+				blade_folding.setDoubleValue( v );
+				
+				v = animation_tilt_mp.getValue();
+				if ( v == nil) v = 0.0;
+				animation_tilt.setDoubleValue( v );
+				
+				v = wing_rotation_mp.getValue();
+				if ( v == nil) v = 0.0;
+				wing_rotation.setDoubleValue( v );
+				
+				settimer(func { loop() }, 0);
+			}
+			settimer(func { loop() }, 0);
+		</load>
+	</nasal>
 	<offsets>
 		<x-m>0.0</x-m>
 		<y-m>0.0</y-m>

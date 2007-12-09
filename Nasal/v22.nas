@@ -141,9 +141,9 @@ var update_controls_and_tilt_loop = func(dt){
 	helicopter_control_factor = clamp( (90-act_tilt)/50,0 ,1);
 	var flap_control_factor = clamp( (speed-40)/80 ,0 ,1);
 	
-	out_wing_ele.setValue( ele * airplane_control_factor );
+	out_wing_ele.setValue( ele );
 	out_wing_ail.setValue( ail * 0.15 * airplane_control_factor );
-	out_wing_rud.setValue( rud * airplane_control_factor );
+	out_wing_rud.setValue( rud );
 	if (wing_state.getValue()==0) {
 		out_wing_flap.setValue( flap * flap_control_factor * 0.3 + (1-flap_control_factor)*min(1,1-act_tilt/90));
 	}
@@ -805,7 +805,11 @@ dynamic_view.register(func {
 });
 
 
-
+var update_mp_generics = func {
+	setprop("sim/multiplay/generic/float[0]", blade_folding.getValue());
+	setprop("sim/multiplay/generic/float[1]", animation_tilt.getValue());
+	setprop("sim/multiplay/generic/float[2]", wing_rotation.getValue());
+}
 
 # main() ============================================================
 var delta_time = props.globals.getNode("/sim/time/delta-realtime-sec", 1);
@@ -824,6 +828,7 @@ var main_loop = func {
 	update_sound(dt);
 	update_controls_and_tilt_loop(dt);
 	# update_rotor_brake();
+	update_mp_generics();
 	settimer(main_loop, 0);
 }
 

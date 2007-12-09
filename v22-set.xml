@@ -92,6 +92,14 @@ V22 Osprey simulation config.
 		
 		<chase-distance-m type="double" archive="y">-35.00</chase-distance-m>
 
+		<multiplay>
+			<generic>
+				<float n="0"></float>
+				<float n="1"></float>
+				<float n="2"></float>
+			</generic>
+		</multiplay>
+
 		<view n="0">
 			<internal archive="y">true</internal>
 			<config>
@@ -147,12 +155,20 @@ V22 Osprey simulation config.
 			<line>Informations about the V22 Osprey</line>
 			<line></line>
 			<key>
+				<name>}</name>
+				<desc>Start Engines</desc>
+			</key>
+			<key>
+				<name>{</name>
+				<desc>Stop Engines</desc>
+			</key>
+			<key>
 				<name>m</name>
-				<desc>Tilt Rotors fwd by 10°</desc>
+				<desc>Tilt Rotors fwd by 10 deg</desc>
 			</key>
 			<key>
 				<name>M</name>
-				<desc>Tilt Rotors aft by 10°</desc>
+				<desc>Tilt Rotors aft by 10 deg</desc>
 			</key>
 			<key>
 				<name>Alt-m</name>
