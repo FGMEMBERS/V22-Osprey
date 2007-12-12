@@ -1,1278 +1,168 @@
-<?xml version="1.0"?>
-
-<!--
-
-Wing rotate axe : 
-  <center>
-    <x-m>-1.018454</x-m>
-    <y-m>0.000235</y-m>
-    <z-m>0.87156</z-m>
-  </center>
-  <axis>
-    <x>-0.068906</x>
-    <y>0</y>
-    <z>2.440773</z>
-  </axis>
-
-
-blade left 2 fold rotate axe (paleG2)
-  <center>
-    <x-m> -4.542 </x-m>
-    <y-m> -8.751 </y-m>
-    <z-m>  2.572 </z-m>
-  </center>
-  <axis>
-    <x> 0.000 </x>
-    <y> 0.000 </y>
-    <z> 1.000 </z>
-  </axis>
-
-blade left 3 fold rotate axe (paleG3)
-  <center>
-    <x-m> -0.377 </x-m>
-    <y-m> -7.734 </y-m>
-    <z-m>  2.572 </z-m>
-  </center>
-  <axis>
-    <x> 0.000 </x>
-    <y> 0.000 </y>
-    <z> 1.000 </z>
-  </axis>
-
-blade right 2 fold rotate axe (paleD2)
-  <center>
-    <x-m> -4.542 </x-m>
-    <y-m>  8.751 </y-m>
-    <z-m>  2.572 </z-m>
-  </center>
-  <axis>
-    <x> 0.000 </x>
-    <y> 0.000 </y>
-    <z> 1.000 </z>
-  </axis>
-
-blade right 3 fold rotate axe (paleD3)
-  <center>
-    <x-m> -0.377 </x-m>
-    <y-m>  7.734 </y-m>
-    <z-m>  2.572 </z-m>
-  </center>
-  <axis>
-    <x> 0.000 </x>
-    <y> 0.000 </y>
-    <z> 1.000 </z>
-  </axis>
-
-blade left 1 pitch (piedpaleG1+paleG1)
-		<center>
-			<x-m>-1.574569</x-m>
-			<y-m>-6.693149</y-m>
-			<z-m>2.533302</z-m>
-		</center>
-		<axis>
-			<x>-0.001439</x>
-			<y>-0.695704</y>
-			<z>0.012211</z>
-		</axis>
-
-blade left 2 pitch (piedpaleG2+paleG2)
-		<center>
-			<x-m>-1.876895</x-m>
-			<y-m>-7.214302</y-m>
-			<z-m>2.533302</z-m>
-		</center>
-		<axis>
-			<x>0.603216</x>
-			<y>0.346605</y>
-			<z>0.012211</z>
-		</axis>
-
-blade left 3 pitch (piedpaleG3+paleG3)
-		<center>
-			<x-m>-1.2744</x-m>
-			<y-m>-7.215548</y-m>
-			<z-m>2.533302</z-m>
-		</center>
-		<axis>
-			<x>-0.601777</x>
-			<y>0.349097</y>
-			<z>0.012211</z>
-		</axis>
-
-blade right 1 pitch (piedpaleD1+paleD1)
-		<center>
-			<x-m>-1.574569</x-m>
-			<y-m>6.692998</y-m>
-			<z-m>2.533302</z-m>
-		</center>
-		<axis>
-			<x>-0.001439</x>
-			<y>0.695704</y>
-			<z>0.012211</z>
-		</axis>
-
-blade right 2 pitch (piedpaleD2+paleD2)
-		<center>
-			<x-m>-1.876895</x-m>
-			<y-m>7.214001</y-m>
-			<z-m>2.533302</z-m>
-		</center>
-		<axis>
-			<x>0.603215</x>
-			<y>-0.346605</y>
-			<z>0.012211</z>
-		</axis>
-
-blade right 3 pitch (piedpaleD3+paleD3)
-		<center>
-			<x-m>-1.274399</x-m>
-			<y-m>7.216</y-m>
-			<z-m>2.533301</z-m>
-		</center>
-		<axis>
-			<x>-0.601777</x>
-			<y>-0.349097</y>
-			<z>0.012211</z>
-		</axis>
-
-
--->
-
-<PropertyList>
-
-	<path>v22.ac</path>
-	<nasal>
-		<load>
-			var self = cmdarg();
-			var animation_tilt = self.getNode("sim/model/v22/animation_tilt",1);
-			var blade_folding = self.getNode("sim/model/v22/blade_folding",1);
-			var wing_rotation = self.getNode("sim/model/v22/wing_rotation", 1);
-			var blade_folding_mp = self.getNode("sim/multiplay/generic/float[0]", 1);
-			var animation_tilt_mp = self.getNode("sim/multiplay/generic/float[1]", 1);
-			var wing_rotation_mp = self.getNode("sim/multiplay/generic/float[2]", 1);
-			var blade_incidence_mp = self.getNode("sim/multiplay/generic/float[3]", 1);
-			var blade_incidence0 = self.getNode("rotors/main/blade[0]/incidence-deg", 1);
-			var blade_incidence1 = self.getNode("rotors/main/blade[1]/incidence-deg", 1);
-			var blade_incidence2 = self.getNode("rotors/main/blade[2]/incidence-deg", 1);
-			var blade_incidence10 = self.getNode("rotors/tail/blade[0]/incidence-deg", 1);
-			var blade_incidence11 = self.getNode("rotors/tail/blade[1]/incidence-deg", 1);
-			var blade_incidence12 = self.getNode("rotors/tail/blade[2]/incidence-deg", 1);
-			var loopid = 0;
-			var loop = func(id) {
-				id == loopid or return;
-				var v = blade_folding_mp.getValue();
-				if ( v == nil) v = 0.0;
-				blade_folding.setDoubleValue( v );
-				
-				v = animation_tilt_mp.getValue();
-				if ( v == nil) v = 0.0;
-				animation_tilt.setDoubleValue( v );
-				
-				v = wing_rotation_mp.getValue();
-				if ( v == nil) v = 0.0;
-				wing_rotation.setDoubleValue( v );
-				
-				v = blade_incidence_mp.getValue();
-				if ( v == nil) v = 0.0;
-				blade_incidence0.setDoubleValue( v );
-				blade_incidence1.setDoubleValue( v );
-				blade_incidence2.setDoubleValue( v );
-				blade_incidence10.setDoubleValue( v );
-				blade_incidence11.setDoubleValue( v );
-				blade_incidence12.setDoubleValue( v );
-				
-				settimer(func { loop(id) }, 0);
-			}
-			settimer(func { loop(loopid) }, 0);
-		</load>
-		<unload>
-			loopid += 1;
-		</unload>
-	</nasal>
-	<offsets>
-		<x-m>0.0</x-m>
-		<y-m>0.0</y-m>
-		<z-m>0.0</z-m>
-		<pitch-deg>0.0</pitch-deg>
-	</offsets>
-
-	<animation>
-		<!-- Objets opaques -->
-		<object-name>fuselage</object-name>
-		<object-name>interieur</object-name>
-		<object-name>profondeur</object-name>
-		<object-name>antenne</object-name>
-		<object-name>siege</object-name>
-		<object-name>pilote</object-name>
-		<object-name>cosiege</object-name>
-		<object-name>copilote</object-name>
-		<object-name>porteAG</object-name>
-		<object-name>porteAD</object-name>
-		<object-name>porteD</object-name>
-		<object-name>porteG</object-name>
-		<object-name>roueG</object-name>
-		<object-name>roueA</object-name>
-		<object-name>roueD</object-name>
-		<object-name>derive</object-name>
-		<object-name>directionG</object-name>
-		<object-name>directionD</object-name>
-		<object-name>aile</object-name>
-		<object-name>aileronD</object-name>
-		<object-name>aileronG</object-name>
-		<object-name>voletD</object-name>
-		<object-name>voletG</object-name>
-		<object-name>moteurD</object-name>
-		<object-name>moteurG</object-name>
-		<object-name>piedpaleG1</object-name>
-		<object-name>piedpaleG2</object-name>
-		<object-name>piedpaleG3</object-name>
-		<object-name>piedpaleD1</object-name>
-		<object-name>piedpaleD2</object-name>
-		<object-name>piedpaleD3</object-name>
-		<object-name>paleD1</object-name>
-		<object-name>paleD2</object-name>
-		<object-name>paleD3</object-name>
-		<object-name>paleG1</object-name>
-		<object-name>paleG2</object-name>
-		<object-name>paleG3</object-name>
-		<object-name>bolD</object-name>
-		<object-name>bolG</object-name>
-
-		<object-name>tempAB</object-name>
-		<object-name>tempAH</object-name>
-		<object-name>rotationH</object-name>
-		<object-name>articule01</object-name>
-		<object-name>articule02</object-name>
-
-		<!-- Objets transparents -->
-		<object-name>vitre</object-name>
-		<object-name>propdiscG</object-name>
-		<object-name>propdiscD</object-name>
-		<object-name>propblurG</object-name>
-		<object-name>propblurD</object-name>
-	</animation>
-
-	<animation>
-		<type>noshadow</type>
-		<object-name>vitre</object-name>
-	</animation>
-
-	<!-- Planches de bord -->
-	<model>
-		<path>Aircraft/V22-Osprey/Models/Panel/panel.xml</path>
-		<offsets>
-			<x-m> -6.736 </x-m>
-			<y-m>  0.000 </y-m>
-			<z-m> -1.445 </z-m>
-		</offsets>
-	</model>
-
-
-	<!-- Pilote invisible depuis le cockpit -->
-	<animation>
-		<type>select</type>
-		<object-name>pilote</object-name>
-		<condition>
-			<greater-than>
-				<property>sim/current-view/view-number</property>
-				<value>0</value>
-			</greater-than>
-		</condition>
-	</animation>
-
-	<!-- Rotation des ailes -->
-	<animation>
-		<type>rotate</type>
-		<object-name>aile</object-name>
-		<object-name>aileronG</object-name>
-		<object-name>aileronD</object-name>
-		<object-name>voletG</object-name>
-		<object-name>voletD</object-name>
-		<object-name>moteurG</object-name>
-		<object-name>moteurD</object-name>
-		<object-name>piedpaleG1</object-name>
-		<object-name>piedpaleG2</object-name>
-		<object-name>piedpaleG3</object-name>
-		<object-name>piedpaleD1</object-name>
-		<object-name>piedpaleD2</object-name>
-		<object-name>piedpaleD3</object-name>
-		<object-name>paleG1</object-name>
-		<object-name>paleG2</object-name>
-		<object-name>paleG3</object-name>
-		<object-name>paleD1</object-name>
-		<object-name>paleD2</object-name>
-		<object-name>paleD3</object-name>
-		<object-name>bolG</object-name>
-		<object-name>bolD</object-name>
-		<object-name>propdiscG</object-name>
-		<object-name>propdiscD</object-name>
-		<object-name>propblurG</object-name>
-		<object-name>propblurD</object-name>
-		<property>sim/model/v22/wing_rotation</property>
-		<factor>1</factor>
-		<interpolation>
-			<entry>
-				<ind> 0.0 </ind>
-				<dep> 0.0 </dep>
-			</entry>
-			<entry>
-				<ind> 1.0 </ind>
-				<dep> 0.25 </dep>
-			</entry>
-			<entry>
-				<ind> 2.0 </ind>
-				<dep> 0.5 </dep>
-			</entry>
-			<entry>
-				<ind> 3.0 </ind>
-				<dep> 1.0 </dep>
-			</entry>
-			<entry>
-				<ind> 4.0 </ind>
-				<dep> 2.0 </dep>
-			</entry>
-			<entry>
-				<ind> 86.0</ind>
-				<dep> 88.0</dep>
-			</entry>
-			<entry>
-				<ind> 87.0</ind>
-				<dep> 89.0</dep>
-			</entry>
-			<entry>
-				<ind> 88.0</ind>
-				<dep> 89.5</dep>
-			</entry>
-			<entry>
-				<ind> 89.0</ind>
-				<dep> 89.75</dep>
-			</entry>
-			<entry>
-				<ind> 90.0</ind>
-				<dep> 90.0</dep>
-			</entry>
-		</interpolation>
-		<center>
-			<x-m>-1.018454</x-m>
-			<y-m>0.000235</y-m>
-			<z-m>0.87156</z-m>
-		</center>
-		<oldaxis>
-			<x> +0.020 </x>
-			<y> -0.020 </y>
-			<z> -1.000 </z>
-		</oldaxis>
-		<axis>
-			<x>-0.068906</x>
-			<y>0</y>
-			<z>2.440773</z>
-		</axis>
-	</animation>
-
-	<!-- Rotation des moteurs -->
-	<animation>
-		<type>rotate</type>
-		<object-name>moteurD</object-name>
-		<object-name>moteurG</object-name>
-		<object-name>piedpaleD1</object-name>
-		<object-name>piedpaleD2</object-name>
-		<object-name>piedpaleD3</object-name>
-		<object-name>piedpaleG1</object-name>
-		<object-name>piedpaleG2</object-name>
-		<object-name>piedpaleG3</object-name>
-		<object-name>paleD1</object-name>
-		<object-name>paleD2</object-name>
-		<object-name>paleD3</object-name>
-		<object-name>paleG1</object-name>
-		<object-name>paleG2</object-name>
-		<object-name>paleG3</object-name>
-		<object-name>bolD</object-name>
-		<object-name>bolG</object-name>
-		<object-name>propdiscD</object-name>
-		<object-name>propdiscG</object-name>
-		<object-name>propblurD</object-name>
-		<object-name>propblurG</object-name>
-		<property>sim/model/v22/animation_tilt</property>
-		<factor>1</factor>
-		<center>
-			<x-m> -1.880 </x-m>
-			<y-m>  0.000 </y-m>
-			<z-m>  0.520 </z-m>
-		</center>
-		<axis>
-			<x> 0.000 </x>
-			<y>-1.000 </y>
-			<z> 0.000 </z>
-		</axis>
-	</animation>
-
-	<!-- L'hélice gauche-->
-	<!-- Séléction de l'objet visible en fonction des rpm -->
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleG1</object-name>
-		<object-name>piedpaleG2</object-name>
-		<object-name>piedpaleG3</object-name>
-		<object-name>paleG1</object-name>
-		<object-name>paleG2</object-name>
-		<object-name>paleG3</object-name>
-		<object-name>bolG</object-name>
-		<object-name>propdiscG</object-name>
-		<object-name>propblurG</object-name>
-		<property>rotors/tail/roll-deg</property>
-		<factor> 1 </factor>
-		<center>
-			<x-m> -1.574 </x-m>
-			<y-m> -7.041 </y-m>
-			<z-m>  2.252 </z-m>
-		</center>
-		<axis>
-			<x>  1.000 </x>
-			<y>  0.000 </y>
-			<z>  0.000 </z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleG1</object-name>
-		<object-name>piedpaleG2</object-name>
-		<object-name>piedpaleG3</object-name>
-		<object-name>paleG1</object-name>
-		<object-name>paleG2</object-name>
-		<object-name>paleG3</object-name>
-		<object-name>bolG</object-name>
-		<object-name>propdiscG</object-name>
-		<object-name>propblurG</object-name>
-		<property>rotors/tail/yaw-deg</property>
-		<factor> 1 </factor>
-		<center>
-			<x-m> -1.574 </x-m>
-			<y-m> -7.041 </y-m>
-			<z-m>  2.252 </z-m>
-		</center>
-		<axis>
-			<x>  0.000 </x>
-			<y> -1.000 </y>
-			<z>  0.000 </z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleG1</object-name>
-		<object-name>piedpaleG2</object-name>
-		<object-name>piedpaleG3</object-name>
-		<object-name>paleG1</object-name>
-		<object-name>paleG2</object-name>
-		<object-name>paleG3</object-name>
-		<object-name>bolG</object-name>
-		<object-name>propdiscG</object-name>
-		<object-name>propblurG</object-name>
-		<property>rotors/tail/blade[0]/position-deg</property>
-		<offset-deg>-90</offset-deg>
-		<factor> 1 </factor>
-		<center>
-			<x-m> -1.574 </x-m>
-			<y-m> -7.041 </y-m>
-			<z-m>  2.252 </z-m>
-		</center>
-		<axis>
-			<x>  0.000 </x>
-			<y>  0.000 </y>
-			<z> -1.000 </z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>noshadow</type>
-		<object-name>propdiscG</object-name>
-		<object-name>propblurG</object-name>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>piedpaleG1</object-name>
-		<object-name>piedpaleG2</object-name>
-		<object-name>piedpaleG3</object-name>
-		<object-name>paleG1</object-name>
-		<object-name>paleG2</object-name>
-		<object-name>paleG3</object-name>
-		<condition>
-			<less-than>
-				<property>rotors/tail/rpm</property>
-				<value>150</value>
-			</less-than>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>propdiscG</object-name>
-		<condition>
-			<greater-than>
-				<property>rotors/tail/rpm</property>
-				<value>150</value>
-			</greater-than>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>propblurG</object-name>
-		<condition>
-			<and>
-				<greater-than>
-					<property>rotors/tail/rpm</property>
-					<value>60.000</value>
-				</greater-than>
-				<less-than>
-					<property>rotors/tail/rpm</property>
-					<value>150.001</value>
-				</less-than>
-			</and>
-		</condition>
-	</animation>
-
-	<!-- L'hélice droite-->
-	<!-- Séléction de l'objet visible en fonction des rpm -->
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleD1</object-name>
-		<object-name>piedpaleD2</object-name>
-		<object-name>piedpaleD3</object-name>
-		<object-name>paleD1</object-name>
-		<object-name>paleD2</object-name>
-		<object-name>paleD3</object-name>
-		<object-name>bolD</object-name>
-		<object-name>propdiscD</object-name>
-		<object-name>propblurD</object-name>
-		<property>rotors/main/roll-deg</property>
-		<factor> 1 </factor>
-		<center>
-			<x-m> -1.574 </x-m>
-			<y-m>  7.041 </y-m>
-			<z-m>  2.252 </z-m>
-		</center>
-		<axis>
-			<x>  1.000 </x>
-			<y>  0.000 </y>
-			<z>  0.000 </z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleD1</object-name>
-		<object-name>piedpaleD2</object-name>
-		<object-name>piedpaleD3</object-name>
-		<object-name>paleD1</object-name>
-		<object-name>paleD2</object-name>
-		<object-name>paleD3</object-name>
-		<object-name>bolD</object-name>
-		<object-name>propdiscD</object-name>
-		<object-name>propblurD</object-name>
-		<property>rotors/main/yaw-deg</property>
-		<factor> 1 </factor>
-		<center>
-			<x-m> -1.574 </x-m>
-			<y-m>  7.041 </y-m>
-			<z-m>  2.252 </z-m>
-		</center>
-		<axis>
-			<x>  0.000 </x>
-			<y> -1.000 </y>
-			<z>  0.000 </z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleD1</object-name>
-		<object-name>piedpaleD2</object-name>
-		<object-name>piedpaleD3</object-name>
-		<object-name>paleD1</object-name>
-		<object-name>paleD2</object-name>
-		<object-name>paleD3</object-name>
-		<object-name>bolD</object-name>
-		<object-name>propdiscD</object-name>
-		<object-name>propblurD</object-name>
-		<property>rotors/main/blade[0]/position-deg</property>
-		<offset-deg>-90</offset-deg>
-		<factor> 1 </factor>
-		<center>
-			<x-m> -1.574 </x-m>
-			<y-m>  7.041 </y-m>
-			<z-m>  2.252 </z-m>
-		</center>
-		<axis>
-			<x>  0.000 </x>
-			<y>  0.000 </y>
-			<z>  1.000 </z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>noshadow</type>
-		<object-name>propdiscD</object-name>
-		<object-name>propblurD</object-name>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>piedpaleD1</object-name>
-		<object-name>piedpaleD2</object-name>
-		<object-name>piedpaleD3</object-name>
-		<object-name>paleD1</object-name>
-		<object-name>paleD2</object-name>
-		<object-name>paleD3</object-name>
-		<condition>
-			<less-than>
-				<property>rotors/main/rpm</property>
-				<value>150</value>
-			</less-than>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>propdiscD</object-name>
-		<condition>
-			<greater-than>
-				<property>rotors/main/rpm</property>
-				<value>150</value>
-			</greater-than>
-		</condition>
-	</animation>
-
-	<animation>
-		<type>select</type>
-		<object-name>propblurD</object-name>
-		<condition>
-			<and>
-				<greater-than>
-					<property>rotors/main/rpm</property>
-					<value>60.000</value>
-				</greater-than>
-				<less-than>
-					<property>rotors/main/rpm</property>
-					<value>150.001</value>
-				</less-than>
-			</and>
-		</condition>
-	</animation>
-
-	<!-- blade left 1 pitch (piedpaleG1+paleG1)-->
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleG1</object-name>
-		<object-name>paleG1</object-name>
-		<property>rotors/tail/blade[0]/incidence-deg</property>
-		<factor> -1 </factor>
-		<offset-deg>100</offset-deg>
-		<center>
-			<x-m>-1.574569</x-m>
-			<y-m>-6.693149</y-m>
-			<z-m>2.533302</z-m>
-		</center>
-		<axis>
-			<x>0.001439</x>
-			<y>0.695704</y>
-			<z>+0.012211</z>
-		</axis>
-	</animation>
-
-	<!-- blade left 2 pitch (piedpaleG2+paleG2)-->
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleG2</object-name>
-		<object-name>paleG2</object-name>
-		<property>rotors/tail/blade[2]/incidence-deg</property>
-		<factor> -1 </factor>
-		<offset-deg>100</offset-deg>
-		<center>
-			<x-m>-1.876895</x-m>
-			<y-m>-7.214302</y-m>
-			<z-m>2.533302</z-m>
-		</center>
-		<axis>
-			<x>-0.603216</x>
-			<y>-0.346605</y>
-			<z>-0.012211</z>
-		</axis>
-	</animation>
-
-	<!--blade left 3 pitch (piedpaleG3+paleG3)-->
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleG3</object-name>
-		<object-name>paleG3</object-name>
-		<property>rotors/tail/blade[1]/incidence-deg</property>
-		<factor> -1 </factor>
-		<offset-deg>100</offset-deg>
-		<center>
-			<x-m>-1.2744</x-m>
-			<y-m>-7.215548</y-m>
-			<z-m>2.533302</z-m>
-		</center>
-		<axis>
-			<x>0.601777</x>
-			<y>-0.349097</y>
-			<z>-0.012211</z>
-		</axis>
-	</animation>
-
-	<!--blade right 1 pitch (piedpaleD1+paleD1)-->
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleD1</object-name>
-		<object-name>paleD1</object-name>
-		<property>rotors/main/blade[0]/incidence-deg</property>
-		<factor> -1 </factor>
-		<offset-deg>100</offset-deg>
-		<center>
-			<x-m>-1.574569</x-m>
-			<y-m>6.692998</y-m>
-			<z-m>2.533302</z-m>
-		</center>
-		<axis>
-			<x>-0.001439</x>
-			<y>0.695704</y>
-			<z>0.012211</z>
-		</axis>
-	</animation>
-	<!--blade right 2 pitch (piedpaleD2+paleD2)-->
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleD2</object-name>
-		<object-name>paleD2</object-name>
-		<property>rotors/main/blade[2]/incidence-deg</property>
-		<factor> -1 </factor>
-		<offset-deg>100</offset-deg>
-		<center>
-			<x-m>-1.876895</x-m>
-			<y-m>7.214001</y-m>
-			<z-m>2.533302</z-m>
-		</center>
-		<axis>
-			<x>0.603215</x>
-			<y>-0.346605</y>
-			<z>0.012211</z>
-		</axis>
-	</animation>
-
-	<!--blade right 3 pitch (piedpaleD3+paleD3)-->
-	<animation>
-		<type>rotate</type>
-		<object-name>piedpaleD3</object-name>
-		<object-name>paleD3</object-name>
-		<property>rotors/main/blade[1]/incidence-deg</property>
-		<factor> -1 </factor>
-		<offset-deg>100</offset-deg>
-		<center>
-			<x-m>-1.274399</x-m>
-			<y-m>7.216</y-m>
-			<z-m>2.533301</z-m>
-		</center>
-		<axis>
-			<x>-0.601777</x>
-			<y>-0.349097</y>
-			<z>0.012211</z>
-		</axis>
-	</animation>
-
-	<!--blade left 2 fold rotate axe (paleG2)-->
-	<animation>
-		<type>rotate</type>
-		<object-name>paleG2</object-name>
-		<property>sim/model/v22/blade_folding</property>
-		<interpolation>
-			<entry>
-				<ind> 0.0 </ind>
-				<dep> 120.0 </dep>
-			</entry>
-			<entry>
-				<ind>   1.0</ind>
-				<dep>  -5.0</dep>
-			</entry>
-		</interpolation>
-		<center>
-			<x-m> -2.771 </x-m>
-			<y-m> -7.734 </y-m>
-			<z-m>  2.572 </z-m>
-		</center>
-		<axis>
-			<x> 0.000 </x>
-			<y> 0.000 </y>
-			<z> 1.000 </z>
-		</axis>
-	</animation>
-
-	<!-- blade left 3 fold rotate axe (paleG3)-->
-	<animation>
-		<type>rotate</type>
-		<object-name>paleG3</object-name>
-		<property>sim/model/v22/blade_folding</property>
-		<interpolation>
-			<entry>
-				<ind> 0.0 </ind>
-				<dep> 120.0 </dep>
-			</entry>
-			<entry>
-				<ind>   1.0</ind>
-				<dep>  -5.0</dep>
-			</entry>
-		</interpolation>
-		<center>
-			<x-m> -0.377 </x-m>
-			<y-m> -7.734 </y-m>
-			<z-m>  2.572 </z-m>
-		</center>
-		<axis>
-			<x> 0.000 </x>
-			<y> 0.000 </y>
-			<z>-1.000 </z>
-		</axis>
-	</animation>
-	<!-- blade right 2 fold rotate axe (paleD2)-->
-	<animation>
-		<type>rotate</type>
-		<object-name>paleD2</object-name>
-		<property>sim/model/v22/blade_folding</property>
-		<interpolation>
-			<entry>
-				<ind> 0.0 </ind>
-				<dep> 120.0 </dep>
-			</entry>
-			<entry>
-				<ind>   1.0</ind>
-				<dep>  -5.0</dep>
-			</entry>
-		</interpolation>
-		<center>
-			<x-m> -2.771 </x-m>
-			<y-m>  7.734 </y-m>
-			<z-m>  2.572 </z-m>
-		</center>
-		<axis>
-			<x> 0.000 </x>
-			<y> 0.000 </y>
-			<z>-1.000 </z>
-		</axis>
-	</animation>
-
-	<!-- blade right 3 fold rotate axe (paleD3)-->
-	<animation>
-		<type>rotate</type>
-		<object-name>paleD3</object-name>
-		<property>sim/model/v22/blade_folding</property>
-		<interpolation>
-			<entry>
-				<ind> 0.0 </ind>
-				<dep> 120.0 </dep>
-			</entry>
-			<entry>
-				<ind>   1.0</ind>
-				<dep>  -5.0</dep>
-			</entry>
-		</interpolation>
-		<center>
-			<x-m> -0.377 </x-m>
-			<y-m>  7.734 </y-m>
-			<z-m>  2.572 </z-m>
-		</center>
-		<axis>
-			<x> 0.000 </x>
-			<y> 0.000 </y>
-			<z> 1.000 </z>
-		</axis>
-	</animation>
-
-	<!-- Gouverne de profondeur -->
-	<animation>
-		<type>rotate</type>
-		<object-name>profondeur</object-name>
-		<property>surface-positions/elevator-pos-norm</property>
-		<factor>15</factor>
-		<center>
-			<x-m>  8.515 </x-m>
-			<y-m>  0.000 </y-m>
-			<z-m> -0.458 </z-m>
-		</center>
-		<axis>
-			<x> 0.000 </x>
-			<y> 1.000 </y>
-			<z> 0.000 </z>
-		</axis>
-	</animation>
-
-	<!-- Gouverne de direction -->
-	<animation>
-		<type>rotate</type>
-		<object-name>directionG</object-name>
-		<property>surface-positions/rudder-pos-norm</property>
-		<factor>30</factor>
-		<center>
-			<x-m>  8.689 </x-m>
-			<y-m> -2.515 </y-m>
-			<z-m>  0.844 </z-m>
-		</center>
-		<axis>
-			<x> 0.000 </x>
-			<y> 0.000 </y>
-			<z> 1.000 </z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>directionD</object-name>
-		<property>surface-positions/rudder-pos-norm</property>
-		<factor>30</factor>
-		<center>
-			<x-m> 8.689 </x-m>
-			<y-m> 2.515 </y-m>
-			<z-m> 0.844 </z-m>
-		</center>
-		<axis>
-			<x> 0.000 </x>
-			<y> 0.000 </y>
-			<z> 1.000 </z>
-		</axis>
-	</animation>
-
-	<!-- Animations des ailerons -->
-	<animation>
-		<type>rotate</type>
-		<object-name>aileronG</object-name>
-		<property>surface-positions/left-aileron-pos-norm</property>
-		<factor> 90.0 </factor>
-		<axis>
-			<x1-m> -0.847 </x1-m>
-			<y1-m> -6.295 </y1-m>
-			<z1-m>  0.236 </z1-m>
-			<x2-m> -0.636 </x2-m>
-			<y2-m> -3.766 </y2-m>
-			<z2-m>  0.160 </z2-m>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>aileronD</object-name>
-		<property>surface-positions/right-aileron-pos-norm</property>
-		<factor> 90.0 </factor>
-		<axis>
-			<x1-m> -0.636 </x1-m>
-			<y1-m>  3.766 </y1-m>
-			<z1-m>  0.160 </z1-m>
-			<x2-m> -0.847 </x2-m>
-			<y2-m>  6.295 </y2-m>
-			<z2-m>  0.236 </z2-m>
-		</axis>
-	</animation>
-
-	<!-- Volets -->
-	<animation>
-		<type>rotate</type>
-		<object-name>voletG</object-name>
-		<property>surface-positions/flap-pos-norm</property>
-		<factor>90.0</factor>
-		<axis>
-			<x1-m> -0.636 </x1-m>
-			<y1-m> -3.766 </y1-m>
-			<z1-m>  0.160 </z1-m>
-			<x2-m> -0.426 </x2-m>
-			<y2-m> -1.233 </y2-m>
-			<z2-m>  0.085 </z2-m>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>voletD</object-name>
-		<property>surface-positions/flap-pos-norm</property>
-		<factor>90.0</factor>
-		<axis>
-			<x1-m> -0.426 </x1-m>
-			<y1-m>  1.233 </y1-m>
-			<z1-m>  0.085 </z1-m>
-			<x2-m> -0.636 </x2-m>
-			<y2-m>  3.766 </y2-m>
-			<z2-m>  0.160 </z2-m>
-		</axis>
-	</animation>
-
-	<!-- Fermeture des portes des trains -->
-	<animation>
-		<type>rotate</type>
-		<object-name>porteAG</object-name>
-		<property>gear/gear[0]/position-norm</property>
-		<interpolation>
-			<entry>
-				<ind> 0.0 </ind>
-				<dep> 0.0 </dep>
-			</entry>
-			<entry>
-				<ind>   0.1 </ind>
-				<dep> -98.0 </dep>
-			</entry>
-			<entry>
-				<ind>    1.0</ind>
-				<dep> -100.0</dep>
-			</entry>
-		</interpolation>
-		<axis>
-			<x1-m> -6.923 </x1-m>
-			<y1-m> -0.335 </y1-m>
-			<z1-m> -2.452 </z1-m>
-			<x2-m> -6.261 </x2-m>
-			<y2-m> -0.335 </y2-m>
-			<z2-m> -2.527 </z2-m>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>porteAD</object-name>
-		<property>gear/gear[0]/position-norm</property>
-		<interpolation>
-			<entry>
-				<ind> 0.0 </ind>
-				<dep> 0.0 </dep>
-			</entry>
-			<entry>
-				<ind>  0.1 </ind>
-				<dep> 98.0 </dep>
-			</entry>
-			<entry>
-				<ind>   1.0</ind>
-				<dep> 100.0</dep>
-			</entry>
-		</interpolation>
-		<axis>
-			<x1-m> -6.923 </x1-m>
-			<y1-m>  0.335 </y1-m>
-			<z1-m> -2.452 </z1-m>
-			<x2-m> -6.261 </x2-m>
-			<y2-m>  0.335 </y2-m>
-			<z2-m> -2.527 </z2-m>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>porteG</object-name>
-		<property>gear/gear[1]/position-norm</property>
-		<interpolation>
-			<entry>
-				<ind> 0.0 </ind>
-				<dep> 0.0 </dep>
-			</entry>
-			<entry>
-				<ind>    0.1 </ind>
-				<dep> -100.0 </dep>
-			</entry>
-			<entry>
-				<ind>    1.0</ind>
-				<dep> -130.0</dep>
-			</entry>
-		</interpolation>
-		<center>
-			<x-m> -0.626 </x-m>
-			<y-m> -2.182 </y-m>
-			<z-m> -2.363 </z-m>
-		</center>
-		<axis>
-			<x> 1.000 </x>
-			<y> 0.000 </y>
-			<z> 0.000 </z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>porteD</object-name>
-		<property>gear/gear[2]/position-norm</property>
-		<interpolation>
-			<entry>
-				<ind> 0.0 </ind>
-				<dep> 0.0 </dep>
-			</entry>
-			<entry>
-				<ind>   0.1 </ind>
-				<dep> 100.0 </dep>
-			</entry>
-			<entry>
-				<ind>   1.0</ind>
-				<dep> 130.0</dep>
-			</entry>
-		</interpolation>
-		<center>
-			<x-m> -0.626 </x-m>
-			<y-m>  2.182 </y-m>
-			<z-m> -2.363 </z-m>
-		</center>
-		<axis>
-			<x> 1.000 </x>
-			<y> 0.000 </y>
-			<z> 0.000 </z>
-		</axis>
-	</animation>
-
-	<!-- Rentrée des roues -->
-	<animation>
-		<type>rotate</type>
-		<object-name>roueA</object-name>
-		<object-name>tempAB</object-name>
-		<object-name>tempAH</object-name>
-		<object-name>rotationH</object-name>
-		<object-name>articule01</object-name>
-		<object-name>articule02</object-name>
-		<property>gear/gear[0]/position-norm</property>
-		<interpolation>
-			<entry>
-				<ind>   0.0 </ind>
-				<dep> -90.0 </dep>
-			</entry>
-			<entry>
-				<ind> 1.0</ind>
-				<dep> 0.0</dep>
-			</entry>
-		</interpolation>
-		<center>
-			<x-m> -7.044 </x-m>
-			<y-m>  0.000 </y-m>
-			<z-m> -2.043 </z-m>
-		</center>
-		<axis>
-			<x>  0.00 </x>
-			<y>  1.00 </y>
-			<z>  0.00 </z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>rotate</type>
-		<object-name>roueG</object-name>
-		<property>gear/gear[1]/position-norm</property>
-		<interpolation>
-			<entry>
-				<ind>   0.0 </ind>
-				<dep> -90.0 </dep>
-			</entry>
-			<entry>
-				<ind> 1.0</ind>
-				<dep> 0.0</dep>
-			</entry>
-		</interpolation>
-		<center>
-			<x-m> -0.467 </x-m>
-			<y-m> -1.699 </y-m>
-			<z-m> -2.671 </z-m>
-		</center>
-		<axis>
-			<x>  1.00 </x>
-			<y>  0.00 </y>
-			<z>  0.00 </z>
-		</axis>
-	</animation>
-
-  <animation>
-    <type>rotate</type>
-    <object-name>roueD</object-name>
-    <property>gear/gear[2]/position-norm</property>
-    <interpolation>
-      <entry>
-        <ind>  0.0 </ind>
-        <dep> 90.0 </dep>
-      </entry>
-      <entry>
-        <ind> 1.0</ind>
-        <dep> 0.0</dep>
-      </entry>
-    </interpolation>
-    <center>
-      <x-m> -0.467 </x-m>
-      <y-m>  1.699 </y-m>
-      <z-m> -2.671 </z-m>
-    </center>
-    <axis>
-      <x>  1.00 </x>
-      <y>  0.00 </y>
-      <z>  0.00 </z>
-    </axis>
-  </animation>
-
-
-	<!-- Rotation de la roue avant en fonction de la gouverne de direction -->
-	<animation>
-		<type>rotate</type>
-		<object-name>roueA</object-name>
-		<property>controls/flight/rudder</property>
-		<factor> 20.0 </factor>
-		<center>
-			<x-m> -7.248 </x-m>
-			<y-m>  0.000 </y-m>
-			<z-m> -2.707 </z-m>
-		</center>
-		<axis>
-			<x>  0.000 </x>
-			<y>  0.000 </y>
-			<z> -1.000 </z>
-		</axis>
-	</animation>
-
-	<!-- Rotation des roues lors du roulage -->
-	<animation>
-		<type>spin</type>
-		<object-name>roueA</object-name>
-		<property>gear/gear[0]/rollspeed-ms</property>
-		<factor> 30 </factor>
-		<center>
-			<x-m> -7.248 </x-m>
-			<y-m>  0.000 </y-m>
-			<z-m> -2.707 </z-m>
-		</center>
-		<axis>
-			<x>  0.000 </x>
-			<y> -1.000 </y>
-			<z>  0.000 </z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>spin</type>
-		<object-name>roueG</object-name>
-		<property>gear/gear[1]/rollspeed-ms</property>
-		<factor> 30 </factor>
-		<center>
-			<x-m> -0.467 </x-m>
-			<y-m> -2.101 </y-m>
-			<z-m> -2.671 </z-m>
-		</center>
-		<axis>
-			<x>  0.000 </x>
-			<y> -1.000 </y>
-			<z>  0.000 </z>
-		</axis>
-	</animation>
-
-	<animation>
-		<type>spin</type>
-		<object-name>roueG</object-name>
-		<property>gear/gear[2]/rollspeed-ms</property>
-		<factor> 30 </factor>
-		<center>
-			<x-m> -0.467 </x-m>
-			<y-m>  2.101 </y-m>
-			<z-m> -2.671 </z-m>
-		</center>
-		<axis>
-			<x>  0.000 </x>
-			<y> -1.000 </y>
-			<z>  0.000 </z>
-		</axis>
-	</animation>
-
-</PropertyList>
+<airplane mass="50000">
+
+	<approach speed="85" aoa="6">
+		<control-setting axis="/sim/model/v22/solver_throttle" value="0.2"/>
+		<control-setting axis="/sim/model/v22/tilt" value="90"/>
+	</approach>
+
+	<cruise speed="275" alt="15000">
+		<control-setting axis="/sim/model/v22/solver_throttle" value="1.0"/>
+		<control-setting axis="/sim/model/v22/tilt" value="90"/>
+	</cruise>
+
+	<!-- main == right rotor (name=main for mp-protocol)-->
+	<!-- tail == left rotor (name=tail for mp-protocol)-->
+
+	<rotor name="main" x="2.18" y="-7.041" z="2.252" nx="0.0" ny="0" nz="1." fx="1" fy="0" fz="0" ccw="1"
+		   maxcollective="180" mincollective="-180" mincyclicele="-90" maxcyclicele="90" mincyclicail="-90" maxcyclicail="90"
+		   mintiltpitch=" -180"  maxtiltpitch="180" tiltcenterx="2.48" tiltcentery="-6.9" tiltcenterz="0.12"
+		   diameter="11.58" numblades="3" weightperblade="675" twist="-47.5" chord="0.81" rpm="412" relbladecenter="0.5" dynamic="1"
+		   rellenflaphinge="0.13" delta3="-0.26" delta=".25" pitch-a="10" pitch-b="15" flapmin="-15" flapmax="15" flap0="-2" flap0factor="0"
+		   notorque="0" dragfactor="0.30" translift-ve="20" translift-maxfactor="1.3" ground-effect-constant="0.1" taper="1"
+		   number-of-segments="8" number-of-parts="8" rel-len-where-incidence-is-measured="0.6" rel-len-blade-start="0.16"
+		   airfoil-lift-coefficient="3.15" airfoil-drag-coefficient0="0.38" airfoil-drag-coefficient1="5.5" incidence-stall-zero-speed="65"
+		   incidence-stall-half-sonic-speed="55.0" lift-factor-stall="0.45" stall-change-over="11" drag-factor-stall="4.0"
+		   cyclic-factor="0.8" rotor-correction-factor="1.7" balance="1" downwashfactor="0.3" phi0="95">
+		<control-input axis="/sim/model/v22/tilt" control="TILTPITCH" src0="-180.0" src1="180.0" dst0="1.0" dst1="-1.0"/>
+		<control-input axis="/sim/model/v22/rotor/right/elevator" control="CYCLICELE" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>
+		<control-input axis="/sim/model/v22/rotor/right/collective" control="COLLECTIVE" src0="-180.0" src1="180.0" dst0="-1" dst1="1.0"/>
+	</rotor>
+
+	<rotor name="tail" x="2.18" y="7.041" z="2.252" nx="0.0" ny="0" nz="1." fx="1" fy="0" fz="0" ccw="0"
+		   maxcollective="180" mincollective="-180" mincyclicele="-90" maxcyclicele="90" mincyclicail="-90" maxcyclicail="90"
+		   mintiltpitch=" -180"  maxtiltpitch="180" tiltcenterx="2.48" tiltcentery="6.9" tiltcenterz="0.12"
+		   diameter="11.58" numblades="3" weightperblade="675" twist="-47.5" chord="0.81" rpm="412" relbladecenter="0.5" dynamic="1"
+		   rellenflaphinge="0.13" delta3="-0.26" delta=".25" pitch-a="10" pitch-b="15" flapmin="-15" flapmax="15" flap0="-2" flap0factor="0"
+		   notorque="0" dragfactor="0.30" translift-ve="20" translift-maxfactor="1.3" ground-effect-constant="0.1" taper="1"
+		   number-of-segments="8" number-of-parts="8" rel-len-where-incidence-is-measured="0.6" rel-len-blade-start="0.16"
+		   airfoil-lift-coefficient="3.15" airfoil-drag-coefficient0="0.38" airfoil-drag-coefficient1="5.5" incidence-stall-zero-speed="65"
+		   incidence-stall-half-sonic-speed="55.0" lift-factor-stall="0.45" stall-change-over="11" drag-factor-stall="4.0"
+		   cyclic-factor="0.8" rotor-correction-factor="1.7" balance="1" downwashfactor="0.3" phi0="95">
+		<control-input axis="/sim/model/v22/tilt" control="TILTPITCH" src0="-180.0" src1="180.0" dst0="1.0" dst1="-1.0"/>
+		<control-input axis="/sim/model/v22/rotor/left/elevator" control="CYCLICELE" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>
+		<control-input axis="/sim/model/v22/rotor/left/collective" control="COLLECTIVE" src0="-180.0" src1="180.0" dst0="-1" dst1="1.0"/>
+	</rotor>
+
+
+	<rotorgear max-power-engine-real="9172" max-power-engine="131720" max-power-rotor-brake="4850" rotorgear-friction="30" engine-prop-factor="0.015" engine-accel-limit="4"
+			   yasimdragfactor="270" yasimliftfactor="28">
+		<control-input axis="/controls/engines/engine[0]/magnetos" control="ROTORGEARENGINEON"/>
+		<control-input axis="/controls/rotor/brake" control="ROTORBRAKE" src0="0.0" src1="1.0" dst0="0.0" dst1="1.0"/>
+		<control-input axis="/controls/rotor/reltarget" control="ROTORRELTARGET"
+					   src0="0.0" src1="2.0"
+					   dst0="0.0" dst1="2.0"/>
+		<control-input axis="/controls/rotor/maxreltorque" control="ROTORENGINEMAXRELTORQUE"
+					   src0="0.0" src1="2.0"
+					   dst0="0.0" dst1="2.0"/>
+
+
+	</rotorgear>
+
+	<!-- only for the solver -->
+	<!--
+<thruster vx="1" vy="0" vz="0" x="4.62" z="0.39" y="7.041" thrust="3514">
+	<control-input axis="/sim/model/v22/solver_throttle" control="THROTTLE"/>	
+</thruster>  
+<thruster vx="1" vy="0" vz="0" x="4.62" z="0.39" y="-7.041" thrust="3514">
+	<control-input axis="/sim/model/v22/solver_throttle" control="THROTTLE"/>	
+</thruster> -->
+
+	<cockpit x="-1.88" y=".33" z="0.6"/>
+
+	<fuselage ax="8.0" ay="0" az="-1.6" bx="-4.8" by="0" bz="-1.6" width="2.1" taper="0.95" midpoint="0.5" cx=".7" cy="2" cz="0.35" idrag="0"/>
+
+
+	<wing x="1.91" y="0.6" z="0.39" chord="2.35" chord_real="2.35" taper="1.0" length_real="5.4" length="5.4" dihedral="3" incidence="3.5" camber="0.2" sweep="-8">
+		<stall width="8" aoa="35" peak="1.5"/>
+		<flap0 drag="1.6" end="0.5" lift="2" start="0.02"/>
+		<flap1 drag="1.6" end="0.97" lift="2" start="0.5"/>
+		<control-input control="FLAP0" axis="/sim/model/v22/wing/flap"/>
+		<control-input control="FLAP1" axis="/sim/model/v22/wing/flap"/>
+		<control-input control="FLAP1" split="true" axis="sim/model/v22/wing/aileron"/>
+		<control-output prop="/surface-positions/flap-pos-norm" control="FLAP0"/>
+		<control-output prop="/surface-positions/left-aileron-pos-norm" side="left" control="FLAP1"/>
+		<control-output prop="/surface-positions/right-aileron-pos-norm" side="right" control="FLAP1"/>
+	</wing>
+
+
+	<vstab x="-6.31" y="2.26" z="-1.39" taper=".5" length="2.89" chord="2.44" sweep="25" incidence="0">
+		<stall aoa="16" width="4" peak="1.5"/>
+		<flap0 drag="1.2" end="1" lift="1.4" start="0.4"/>
+		<control-input control="FLAP0" axis="/sim/model/v22/wing/rudder" invert="true"/>
+		<control-output prop="/surface-positions/rudder-pos-norm" control="FLAP0" min="1" max="-1"/>
+	</vstab>
+
+	<vstab x="-6.31" y="-2.26" z="-1.39" taper=".5" length="2.89" chord="2.44" sweep="25" incidence="0">
+		<stall aoa="16" width="4" peak="1.5"/>
+		<flap0 drag="1.2" end="1" lift="1.4" start="0.4"/>
+		<control-input control="FLAP0" axis="/sim/model/v22/wing/rudder" invert="true"/>
+		<control-output prop="/surface-positions/rudder-pos-norm" control="FLAP0" min="1" max="-1"/>
+	</vstab>
+
+
+	<mstab x="-6.54" y="0.0" z="0.42" taper="1.0" length="2.26" chord="1.35" sweep="0" incidence="-10.5">
+		<stall aoa="16" width="4" peak="1.5"/>
+		<flap0 drag="1.2" end="1" lift="1.9" start="0"/>
+		<control-input control="FLAP0" axis="/sim/model/v22/wing/elevator"/>
+		<control-output prop="/surface-positions/elevator-pos-norm" control="FLAP0"/>
+	</mstab>
+
+	<!-- front gear -->
+	<gear x="7.428" y="0" z="-2.949" compression="0.2">
+		<control-input axis="/controls/gear/brake-right" control="BRAKE" split="true"/>
+		<control-input axis="/controls/gear/brake-left" control="BRAKE" split="true"/>
+		<control-input axis="/controls/gear/brake-parking" control="BRAKE" split="true"/>
+
+		<control-input axis="/controls/flight/rudder" control="STEER" square="true" src0="-1.0" src1="1.0" dst0="-0.8" dst1="0.8"/>
+		<control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+		<control-speed control="EXTEND" transition-time="5"/>
+		<control-output control="EXTEND" prop="/gear/gear[0]/position-norm"/>
+	</gear>
+
+	<!-- left gear -->
+	<gear x="0.467" y="2.101" z="-2.949" compression="0.2">
+		<control-input axis="/controls/gear/brake-left" control="BRAKE" split="true"/>
+		<control-input axis="/controls/gear/brake-parking" control="BRAKE" split="true"/>
+
+		<control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+		<control-speed control="EXTEND" transition-time="5.1"/>
+		<control-output control="EXTEND" prop="/gear/gear[1]/position-norm"/>
+	</gear>
+
+	<!-- right gear -->
+	<gear x="0.467" y="-2.101" z="-2.949" compression="0.2">
+		<control-input axis="/controls/gear/brake-right" control="BRAKE" split="true"/>
+		<control-input axis="/controls/gear/brake-parking" control="BRAKE" split="true"/>
+
+		<control-input axis="/controls/gear/gear-down" control="EXTEND"/>
+		<control-speed control="EXTEND" transition-time="5.2"/>
+		<control-output control="EXTEND" prop="/gear/gear[2]/position-norm"/>
+	</gear>
+
+
+	<tank x="-3.39" y="+0.7" z="-.31" capacity="75"/>
+	<tank x="-3.47" y="-0.7" z="-.31" capacity="75"/>
+	<tank x="-3.8" y="-0.5" z="0" capacity="75"/>
+	<!-- work around bug in native-fdm.cxx:184 -->
+	<tank x="0" y="0" z="0" capacity="0"/>
+
+	<ballast x=" 4.25" y="+0.0" z="-2.5" mass=" 9500"/>
+	<ballast x="-8" y="+0.0" z="0.5" mass="-6500"/>
+
+	<!-- engine weight: 971 lbs, add some lbs for gear and ...-->
+	<ballast x="1.91" yr="6" y="3" z="0.39" mass="1200"/>
+	<ballast x="1.91" yr="-6" y="-3" z="0.39" mass="1200"/>
+
+
+	<weight x="-2.0" y=".33" z="-.5" mass-prop="/sim/weight[0]/weight-lb"/>
+	<!-- pilot -->
+	<weight x="-2.0" y="-.33" z="-.5" mass-prop="/sim/weight[1]/weight-lb"/>
+	<!-- co-pilot -->
+	<weight x="-3.2" y=".33" z="-.5" mass-prop="/sim/weight[2]/weight-lb"/>
+	<!-- right passenger -->
+	<weight x="-3.2" y="-.33" z="-.5" mass-prop="/sim/weight[4]/weight-lb"/>
+	<!-- left passenger -->
+	<weight x="-4.5" y="0" z="-.5" mass-prop="/sim/weight[5]/weight-lb"/>
+	<!-- load -->
+
+</airplane>
