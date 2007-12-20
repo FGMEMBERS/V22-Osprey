@@ -15,7 +15,8 @@
 
 	<rotor name="main" x="2.18" y="-7.041" z="2.252" nx="0.0" ny="0" nz="1." fx="1" fy="0" fz="0" ccw="1"
 		   maxcollective="180" mincollective="-180" mincyclicele="-90" maxcyclicele="90" mincyclicail="-90" maxcyclicail="90"
-		   mintiltpitch=" -180"  maxtiltpitch="180" tiltcenterx="2.48" tiltcentery="-6.9" tiltcenterz="0.12"
+		   mintiltpitch=" -180"  maxtiltpitch="180" tiltcenterx="2.48" tiltcentery="-2.1" tiltcenterz="0.12"
+		   mintiltroll="-90" maxtiltroll="90" 
 		   diameter="11.58" numblades="3" weightperblade="675" twist="-47.5" chord="0.81" rpm="412" relbladecenter="0.5" dynamic="1"
 		   rellenflaphinge="0.13" delta3="-0.26" delta=".25" pitch-a="10" pitch-b="15" flapmin="-15" flapmax="15" flap0="-2" flap0factor="0"
 		   notorque="0" dragfactor="0.30" translift-ve="20" translift-maxfactor="1.3" ground-effect-constant="0.1" taper="1"
@@ -24,13 +25,15 @@
 		   incidence-stall-half-sonic-speed="55.0" lift-factor-stall="0.45" stall-change-over="11" drag-factor-stall="4.0"
 		   cyclic-factor="0.8" rotor-correction-factor="1.7" balance="1" downwashfactor="0.3" phi0="95">
 		<control-input axis="/sim/model/v22/tilt" control="TILTPITCH" src0="-180.0" src1="180.0" dst0="1.0" dst1="-1.0"/>
+		<control-input axis="/sim/model/v22/wing_rotation" control="TILTROLL" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>
 		<control-input axis="/sim/model/v22/rotor/right/elevator" control="CYCLICELE" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>
 		<control-input axis="/sim/model/v22/rotor/right/collective" control="COLLECTIVE" src0="-180.0" src1="180.0" dst0="-1" dst1="1.0"/>
 	</rotor>
 
 	<rotor name="tail" x="2.18" y="7.041" z="2.252" nx="0.0" ny="0" nz="1." fx="1" fy="0" fz="0" ccw="0"
 		   maxcollective="180" mincollective="-180" mincyclicele="-90" maxcyclicele="90" mincyclicail="-90" maxcyclicail="90"
-		   mintiltpitch=" -180"  maxtiltpitch="180" tiltcenterx="2.48" tiltcentery="6.9" tiltcenterz="0.12"
+		   mintiltpitch=" -180"  maxtiltpitch="180" tiltcenterx="2.48" tiltcentery="2.1" tiltcenterz="0.12"
+		   mintiltroll="-90" maxtiltroll="90" 
 		   diameter="11.58" numblades="3" weightperblade="675" twist="-47.5" chord="0.81" rpm="412" relbladecenter="0.5" dynamic="1"
 		   rellenflaphinge="0.13" delta3="-0.26" delta=".25" pitch-a="10" pitch-b="15" flapmin="-15" flapmax="15" flap0="-2" flap0factor="0"
 		   notorque="0" dragfactor="0.30" translift-ve="20" translift-maxfactor="1.3" ground-effect-constant="0.1" taper="1"
@@ -39,6 +42,7 @@
 		   incidence-stall-half-sonic-speed="55.0" lift-factor-stall="0.45" stall-change-over="11" drag-factor-stall="4.0"
 		   cyclic-factor="0.8" rotor-correction-factor="1.7" balance="1" downwashfactor="0.3" phi0="95">
 		<control-input axis="/sim/model/v22/tilt" control="TILTPITCH" src0="-180.0" src1="180.0" dst0="1.0" dst1="-1.0"/>
+		<control-input axis="/sim/model/v22/wing_rotation" control="TILTROLL" src0="-90.0" src1="90.0" dst0="1.0" dst1="-1.0"/>
 		<control-input axis="/sim/model/v22/rotor/left/elevator" control="CYCLICELE" src0="-90.0" src1="90.0" dst0="-1.0" dst1="1.0"/>
 		<control-input axis="/sim/model/v22/rotor/left/collective" control="COLLECTIVE" src0="-180.0" src1="180.0" dst0="-1" dst1="1.0"/>
 	</rotor>
