@@ -80,7 +80,6 @@ var target_rpm = target_rpm_helicopter;
 
 var update_controls_and_tilt_loop = func(dt){
 	if (props.globals.getNode("sim/crashed",1).getBoolValue()) {
-		settimer(update_controls_and_tilt_loop, 0);
 		return;
 	}
 	
