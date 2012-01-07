@@ -841,6 +841,7 @@ var config_dialog = nil;
 
 
 # initialization
+var is_initialized = 0;
 setlistener("/sim/signals/fdm-initialized", func {
 
 	#init_rotoranim();
@@ -848,6 +849,9 @@ setlistener("/sim/signals/fdm-initialized", func {
 	setprop ("/sim/model/v22/solver_throttle", 0);
 	#settimer(update_controls_and_tilt_loop, 0);
 	
+	if (is_initialized) return;
+	is_initialized = 1;
+
 	setlistener("/sim/signals/reinit", func(n) {
 		n.getBoolValue() and return;
 		cprint("32;1", "reinit");

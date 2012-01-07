@@ -22,7 +22,10 @@ var refresh_immat = func {
 var immat_dialog = gui.Dialog.new("/sim/gui/dialogs/ka50/status/dialog",
                                   "Aircraft/Ka-50/Dialogs/immat.xml");
 
+var is_initialized = 0;
 setlistener("/sim/signals/fdm-initialized", func {
+  if (is_initialized) return;
+  is_initialized = 1;
   if (props.globals.getNode("/sim/model/immat") == nil) {
     var immat = props.globals.getNode("/sim/model/immat",1);
     var callsign = props.globals.getNode("/sim/multiplay/callsign").getValue();
